@@ -1,22 +1,26 @@
 import './style.css';
 
-const toggler = document.querySelector('.navbar-toggler');
 const sidebar = document.querySelector('.sidebar');
+const mainContent = document.querySelector('.main-content');
 
 
 function hideSidebar() {
-    sidebar.style.display = 'none';
+    sidebar.style.minWidth = '0';
+    sidebar.style.width = '0';
     sidebar.classList.add('hidden');
 }
 
 function showSidebar() {
-    sidebar.style.display = 'visible';
+    sidebar.style.minWidth = '200px';
+    sidebar.style.width = '200px';
     sidebar.classList.remove('hidden');
 }
 
 //Determines whether to hide or show sidebar.
-function sidebarToggler() {
-
+export default function sidebarToggler() {
+    if (sidebar.classList.contains('hidden')) {
+        showSidebar();
+    } else {
+        hideSidebar();
+    }
 }
-
-toggler.addEventListener('click', hideSidebar);
