@@ -61,6 +61,16 @@ html, body {
 .sidebar > div {
     margin: 0 30px;
     min-width: 140px;
+    border-radius: 3px;
+    padding-left: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    transition: 0.25s;
+}
+
+.sidebar > div:hover {
+    background-color: rgba(128, 128, 128, 0.1);
+    cursor: pointer;
 }
 
 hr {
@@ -75,6 +85,22 @@ hr {
     color: #1F2937;
 }
 
+.add-task {
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 0;
+    border-radius: 50%;
+    background-color: #0f766e;
+    font-size: 36px;
+    color: #f9fafb;
+}
+
 .footer {
     position: fixed;
     bottom: 0;
@@ -86,10 +112,13 @@ hr {
     width: 100%;
     padding: 10px;
     font-size: 20px;
+    color: #191919;
+    background-color: #f9fafb;
   }
   
   .fa-github {
     color: #191919;
+    /* color: #f9fafb; */
     font-size: 24px;
     transition: transform 0.3s ease-in-out;
   }

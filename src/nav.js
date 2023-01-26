@@ -1,7 +1,6 @@
 import './style.css';
 
 const sidebar = document.querySelector('.sidebar');
-const mainContent = document.querySelector('.main-content');
 
 
 function hideSidebar() {
