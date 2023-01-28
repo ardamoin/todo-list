@@ -1,128 +1,164 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Raleway;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Raleway;
 }
 
 .header {
-    height: 60px;
-    margin: 0;
-    background-color: #d49d6b;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  height: 60px;
+  margin: 0;
+  background-color: #d49d6b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .navbar-toggler {
-    margin-left: 15px;
-    border-width: 0;
-    border-radius: 7%;
-    --bs-navbar-toggler-border-radius: 0;
-    --bs-navbar-toggler-focus-width: 0;
-    transition: 0.25s;
+  margin-left: 15px;
+  border-width: 0;
+  border-radius: 7%;
+  --bs-navbar-toggler-border-radius: 0;
+  --bs-navbar-toggler-focus-width: 0;
+  transition: 0.25s;
 }
 
-.navbar-toggler:hover, .test:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+.navbar-toggler:hover,
+.test:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .home-button {
-    font-size: 1.5em;
-    color: rgba(0, 0, 0, 0.55);
-    height: 38px;
-    width: 54px;
-    background-color: transparent;
-    border-width: 0;
-    border-radius: 7%;
-    transition: 0.25s;
+  font-size: 1.5em;
+  color: rgba(0, 0, 0, 0.55);
+  height: 38px;
+  width: 54px;
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 7%;
+  transition: 0.25s;
 }
 
-
 .home-button:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .content {
-    display: flex;
-    height: 100%;
+  display: flex;
+  height: 100%;
 }
 
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    background-color: #f9fafb;
-    overflow: hidden;
-    transition: 0.5s;
-    width: 200px;
-    min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: #f9fafb;
+  overflow: hidden;
+  transition: 0.5s;
+  width: 200px;
+  min-width: 200px;
 }
 
 .sidebar > div {
-    margin: 0 30px;
-    min-width: 140px;
-    border-radius: 3px;
-    padding-left: 15px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    transition: 0.25s;
+  margin: 0 30px;
+  min-width: 140px;
+  border-radius: 3px;
+  padding-left: 15px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  transition: 0.25s;
 }
 
 .sidebar > div:hover {
-    background-color: rgba(128, 128, 128, 0.1);
-    cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.1);
+  cursor: pointer;
 }
 
 hr {
-    border-top: 1px solid #191919;
-    width: 120px;
-    margin: -15px 30px;
-    
+  border-top: 1px solid #191919;
+  width: 120px;
+  margin: -15px 30px;
 }
 
-.main-content, .sidebar {
-    padding-top: 30px;
-    color: #1F2937;
+.main-content,
+.sidebar {
+  padding-top: 30px;
+  color: #1f2937;
 }
 
 .add-task {
-    height: 60px;
-    width: 60px;
-    position: fixed;
-    bottom: 100px;
-    right: 50px;
+  height: 60px;
+  width: 60px;
+  position: fixed;
+  bottom: 100px;
+  right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 0;
+  border-radius: 50%;
+  background-color: #0f766e;
+  font-size: 36px;
+  color: #f9fafb;
+}
+
+.form {
+    z-index: 1;
+    border-style: solid;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.form-header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 15px;
+    font-weight: bold;
+    background-color: #d49d6b;
+    height: 55px;
+    border-radius: 3px;
+    
+}
+
+.form-body {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.form-title, .form-details {
+    resize: none;
     border-width: 0;
-    border-radius: 50%;
-    background-color: #0f766e;
-    font-size: 36px;
-    color: #f9fafb;
+}
+
+.form-details {
+    height: 100px;
+    font-size: 12px;
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 10px;
-    font-size: 20px;
-    color: #191919;
-    background-color: #f9fafb;
-  }
-  
-  .fa-github {
-    color: #191919;
-    /* color: #f9fafb; */
-    font-size: 24px;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .fa-github:hover {
-    transform: rotate(360deg) scale(1.2);
-  }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  color: #191919;
+  background-color: #f9fafb;
+}
+
+.fa-github {
+  color: #191919;
+  /* color: #f9fafb; */
+  font-size: 24px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.fa-github:hover {
+  transform: rotate(360deg) scale(1.2);
+}
