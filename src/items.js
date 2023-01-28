@@ -109,13 +109,14 @@ export function todoFormGenerator() {
   highPriorityBtn.textContent = "HIGH";
   addTodoBtn.textContent = "ADD TO DO";
   priorityDiv.classList.add("form-component", "form-priority");
-  lowPriorityBtn.classList.add("form-component", "lp-button", "btn", "btn-outline-success");
+  lowPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-success");
   lowPriorityBtn.setAttribute("data-bs-toggle", "button");
-  mediumPriorityBtn.classList.add("form-component", "mp-button", "btn", "btn-outline-warning");
+  mediumPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-warning");
   mediumPriorityBtn.setAttribute("data-bs-toggle", "button");
-  highPriorityBtn.classList.add("form-component", "hp-button", "btn", "btn-outline-danger");
+  highPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-danger");
   highPriorityBtn.setAttribute("data-bs-toggle", "button");
-  addTodoBtn.classList.add("form-component", "add-button", "btn", "btn-outline-info");
+  addTodoBtn.classList.add("form-component", "add-button", "btn", "btn-outline-primary");
+  makeActiveButtonStateExclusive(lowPriorityBtn, mediumPriorityBtn, highPriorityBtn);
   priorityDiv.appendChild(lowPriorityBtn);
   priorityDiv.appendChild(mediumPriorityBtn);
   priorityDiv.appendChild(highPriorityBtn);
@@ -123,4 +124,23 @@ export function todoFormGenerator() {
   bodyDiv.appendChild(priorityDiv);
 
   return formDiv;
+}
+
+function makeActiveButtonStateExclusive(...args) {
+    /**
+     *  The goal of this function is to make it so that activating one
+     * of the priority buttons automatically deactivates the other two.
+     */
+
+    args.forEach(button => {
+        button.addEventListener('click', () => {
+            console.log(button);
+            const otherButtons = args.filter(p => p !== button);
+            console.log(otherButtons);
+            otherButtons.map(p => {
+                p.classList.remove("active");
+                p.setAttribute("aria-pressed", "false");
+            })
+        })
+    })
 }
