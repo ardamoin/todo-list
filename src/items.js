@@ -134,9 +134,7 @@ function makeActiveButtonStateExclusive(...args) {
 
     args.forEach(button => {
         button.addEventListener('click', () => {
-            console.log(button);
             const otherButtons = args.filter(p => p !== button);
-            console.log(otherButtons);
             otherButtons.map(p => {
                 p.classList.remove("active");
                 p.setAttribute("aria-pressed", "false");
