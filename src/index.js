@@ -12,8 +12,11 @@ const toggler = document.querySelector(".navbar-toggler");
 toggler.addEventListener("click", sidebarToggler);
 
 console.log(todoItem("mina", "sandra", "20230126", "medium"));
-const myItem = todoItem("title", "description", "20230126", "medium");
+const myItem = todoItem("title", "description", "20230126", "low");
 const myDiv = itemComponentGenerator(myItem);
+const myItem2 = todoItem("Find", "description","20230129", "high");
+const myDiv2 = itemComponentGenerator(myItem2);
 
 document.querySelector(".main-content").appendChild(myDiv);
-document.body.appendChild(todoFormGenerator());
+document.querySelector(".main-content").appendChild(myDiv2);
+

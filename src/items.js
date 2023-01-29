@@ -26,26 +26,45 @@ export function todoItem(title, description, dueDate, priorityString) {
 
 export function itemComponentGenerator(todoItem) {
   const itemDiv = document.createElement("div");
+  const priorityColor = document.createElement("div");
   const checkBox = document.createElement("input");
   const titleDiv = document.createElement("div");
   const detailsButton = document.createElement("button");
-  const descriptionDiv = document.createElement("div");
   const dateDiv = document.createElement("div");
   const editButton = document.createElement("button");
+  const editImg = document.createElement("i");
   const deleteButton = document.createElement("button");
+  const deleteImg = document.createElement("i");
 
   itemDiv.classList.add("todo");
 
+  priorityColor.classList.add("priority-strip", `priority-${todoItem.priority}`);
+  itemDiv.appendChild(priorityColor);
+
   checkBox.type = "checkbox";
+  checkBox.classList.add("todo-checkbox");
+  checkBox.addEventListener("click", () => {
+    if (checkBox.classList.contains("cb-checked")) {
+        checkBox.classList.remove("cb-checked");
+        titleDiv.classList.remove("checked");
+        detailsButton.classList.remove("checked");
+        dateDiv.classList.remove("checked");
+        editButton.classList.remove("checked");
+        deleteButton.classList.remove("checked");
+    } else {
+        checkBox.classList.add("cb-checked");
+        titleDiv.classList.add("checked");
+        detailsButton.classList.add("checked");
+        dateDiv.classList.add("checked");
+        editButton.classList.add("checked");
+        deleteButton.classList.add("checked");
+    }
+  })
   itemDiv.appendChild(checkBox);
 
   titleDiv.textContent = todoItem.title;
   titleDiv.classList.add("todo-title");
   itemDiv.appendChild(titleDiv);
-
-  descriptionDiv.textContent = todoItem.description;
-  descriptionDiv.classList.add("todo-description");
-  itemDiv.appendChild(descriptionDiv);
 
   detailsButton.textContent = "DETAILS";
   detailsButton.classList.add("todo-details");
@@ -55,12 +74,14 @@ export function itemComponentGenerator(todoItem) {
   dateDiv.classList.add("todo-date");
   itemDiv.appendChild(dateDiv);
 
-  editButton.textContent = "EDIT";
   editButton.classList.add("todo-edit");
+  editImg.classList.add("bi", "bi-pencil-square");
+  editButton.appendChild(editImg);
   itemDiv.appendChild(editButton);
 
-  deleteButton.textContent = "DELETE";
   deleteButton.classList.add("todo-delete");
+  deleteImg.classList.add("bi", "bi-trash");
+  deleteButton.appendChild(deleteImg);
   itemDiv.appendChild(deleteButton);
 
   return itemDiv;
