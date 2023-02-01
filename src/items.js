@@ -11,7 +11,7 @@ Date dueDate
 String priority
 */
 
-export function todoItem(title, description, dueDate, priorityString) {
+export function todoItem(title, description, dueDate, priorityString, projectName) {
   const Priorities = Object.freeze({
     low: "low",
     medium: "medium",
@@ -19,9 +19,10 @@ export function todoItem(title, description, dueDate, priorityString) {
   });
 
   const priority = Priorities[priorityString] || "low";
+  const project = projectName || "inbox";
   const date = format(parseISO(dueDate), "MM/dd/yyyy"); // parseISO parses date strings written in ISO 8601 format
 
-  return { title, description, date, priority };
+  return { title, description, date, priority, project };
 }
 
 export function itemComponentGenerator(todoItem) {
@@ -147,6 +148,41 @@ export function todoFormGenerator() {
   return formDiv;
 }
 
+export function detailsFormGenerator(todoItem) {
+  const formDiv = document.createElement("div");
+  formDiv.classList.add("details-form");
+  const closeButton = document.createElement("div");
+  closeButton.classList.add("details-close");
+  closeButton.textContent = "x";
+  const titleTag = document.createElement("h1");
+  titleTag.textContent = todoItem.title;
+  formDiv.appendChild(closeButton);
+  formDiv.appendChild(titleTag);
+
+  const fields = [
+    { key: "project", label: "Project:", className: "details-project" },
+    { key: "priority", label: "Priority:", className: "details-priority" },
+    { key: "date", label: "Due Date:", className: "details-date" },
+    { key: "description", label: "Description:", className: "details-description" }
+  ];
+
+  fields.forEach(field => {
+    const div = document.createElement("div");
+    const label = document.createElement("span");
+    label.textContent = field.label;
+    label.classList.add(field.className);
+    div.appendChild(label);
+
+    const content = document.createElement("span");
+    content.textContent = todoItem[field.key];
+    div.appendChild(content);
+
+    formDiv.appendChild(div);
+  });
+
+  return formDiv;
+}
+
 function makeActiveButtonStateExclusive(...args) {
     /**
      *  The goal of this function is to make it so that activating one
@@ -163,3 +199,4 @@ function makeActiveButtonStateExclusive(...args) {
         })
     })
 }
+

@@ -292,6 +292,54 @@ hr {
   text-decoration: line-through;
 }
 
+.details-form {
+    background-color: rgba(128, 128, 128, 0.3);
+    color: #793d05;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 640px;
+    min-width: 500px;
+    position: relative;
+    border-radius: 3px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.details-close {
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.details-close:hover {
+    color: goldenrod;
+    cursor: pointer;
+}
+
+.details-project {
+    margin-right: 3.1rem;
+    font-weight: 700;
+}
+
+.details-priority {
+    margin-right: 3.1rem;
+    font-weight: 700;
+}
+
+.details-date {
+    margin-right: 2rem;
+    font-weight: 700;
+}
+
+.details-description {
+    margin-right: 1.1rem;
+    font-weight: 700;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
