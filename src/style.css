@@ -3,8 +3,14 @@ body {
   height: 100%;
   margin: 0;
   font-family: Raleway;
-  /* overflow-x: hidden; */
+  display: flex;
+  flex: 1 1 none;
+  min-width: calc(100vw + 17px);
+  overflow-x: scroll;
+  flex-direction: column;
 }
+
+
 
 .header {
   height: 60px;
@@ -13,6 +19,9 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  position: fixed;
+  top: 0;
 }
 
 .navbar-toggler {
@@ -47,6 +56,7 @@ body {
 .content {
   display: flex;
   height: 100%;
+  padding-top: 60px;
 }
 
 .sidebar {
@@ -338,6 +348,22 @@ hr {
 .details-description {
     margin-right: 1.1rem;
     font-weight: 700;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    mix-blend-mode: multiply;
+    background-repeat: repeat;
+    pointer-events: none;
+}
+
+.overlay.enabled{
+  min-width: calc(100vw + 17px);
+  backdrop-filter: blur(6px);
 }
 
 .footer {
