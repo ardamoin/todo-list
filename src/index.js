@@ -2,6 +2,7 @@ import "./style.css";
 import icon from "./todo-icon.png";
 import sidebarToggler from "./nav";
 import * as items from "./items";
+import { addTodoBtnEventListener } from "./events";
 
 const todoIcon = document.createElement("link");
 todoIcon.rel = "icon";
@@ -21,3 +22,6 @@ document.querySelector(".main-content").appendChild(myDiv);
 document.querySelector(".main-content").appendChild(myDiv2);
 document.querySelector(".main-content").appendChild(items.itemComponentGenerator(items.todoItem("hello", "any", "20230131", "medium")));
 
+addTodoBtnEventListener();
+
+// document.body.appendChild(items.todoFormGenerator());

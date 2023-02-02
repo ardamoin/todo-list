@@ -1,5 +1,6 @@
 import { parseISO, format, add } from "date-fns";
 import { doc } from "prettier";
+import { addCloseEventListener } from "./events";
 
 /*
 Use a factory function to return todo-items
@@ -90,6 +91,7 @@ export function itemComponentGenerator(todoItem) {
 
 export function todoFormGenerator() {
   const formDiv = document.createElement("div");
+  const closeButton = document.createElement("div");
   const headerDiv = document.createElement("div");
   const bodyDiv = document.createElement("div");
   const titleArea = document.createElement("textarea");
@@ -102,9 +104,14 @@ export function todoFormGenerator() {
   const highPriorityBtn = document.createElement("button");
   const addTodoBtn = document.createElement("button");
 
+  closeButton.classList.add("form-close");
+  closeButton.textContent = "x";
+  addCloseEventListener(closeButton);
+
   headerDiv.textContent = "Create A New To Do";
   headerDiv.classList.add("form-component", "form-header");
   bodyDiv.classList.add("form-component", "form-body");
+  headerDiv.appendChild(closeButton);
   formDiv.appendChild(headerDiv);
 
   formDiv.classList.add("form-component", "form");
@@ -154,6 +161,7 @@ export function detailsFormGenerator(todoItem) {
   const closeButton = document.createElement("div");
   closeButton.classList.add("details-close");
   closeButton.textContent = "x";
+  addCloseEventListener(closeButton);
   const titleTag = document.createElement("h1");
   titleTag.textContent = todoItem.title;
   formDiv.appendChild(closeButton);
