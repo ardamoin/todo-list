@@ -1,4 +1,4 @@
-import { todoFormGenerator, todoItem, itemComponentGenerator } from "./items";
+import { todoFormGenerator, todoItem, itemComponentGenerator, detailsFormGenerator } from "./items";
 
 
 export function addTodoBtnEventListener() {
@@ -25,7 +25,7 @@ const overlayToggle = (function() {
 export function addCloseEventListener(closeBtn) {
     closeBtn.addEventListener("click", function() {
         const bodyNode = document.body;
-        const formNode = this.parentNode.parentNode;
+        const formNode = this.closest("body>div");
 
         bodyNode.removeChild(formNode);
         overlayToggle.disable();
@@ -63,6 +63,26 @@ export function addSubmitBtnEventListener(submitBtn) {
             closeBtn.click();
             insertTodoItemComponent(newItem);
         }
+
+    })
+}
+
+export function addDeleteBtnEventListener(deleteButton) {
+    deleteButton.addEventListener("click", function() {
+        const mainContent = document.querySelector(".main-content");
+        const component = this.parentNode;
+
+        mainContent.removeChild(component);
+    })
+}
+
+export function addDetailsBtnEventListener(detailsButton) {
+
+    detailsButton.addEventListener("click", function () {
+        const parent = this.parentNode;
+        const detailsPage = detailsFormGenerator(JSON.parse(parent.getAttribute("data-info")));
+        overlayToggle.enable();
+        document.body.appendChild(detailsPage);
 
     })
 }

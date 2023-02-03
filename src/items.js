@@ -1,6 +1,6 @@
 import { parseISO, format, add } from "date-fns";
 import { doc } from "prettier";
-import { addCloseEventListener, addSubmitBtnEventListener } from "./events";
+import { addCloseEventListener, addSubmitBtnEventListener, addDeleteBtnEventListener, addDetailsBtnEventListener } from "./events";
 
 /*
 Use a factory function to return todo-items
@@ -40,6 +40,7 @@ export function itemComponentGenerator(todoItem) {
   const deleteImg = document.createElement("i");
 
   itemDiv.classList.add("todo");
+  itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
 
   priorityColor.classList.add("priority-strip", `priority-${todoItem.priority}`);
   itemDiv.appendChild(priorityColor);
@@ -71,6 +72,7 @@ export function itemComponentGenerator(todoItem) {
 
   detailsButton.textContent = "DETAILS";
   detailsButton.classList.add("todo-details");
+  addDetailsBtnEventListener(detailsButton);
   itemDiv.appendChild(detailsButton);
 
   dateDiv.textContent = todoItem.date;
@@ -85,6 +87,7 @@ export function itemComponentGenerator(todoItem) {
   deleteButton.classList.add("todo-delete");
   deleteImg.classList.add("bi", "bi-trash");
   deleteButton.appendChild(deleteImg);
+  addDeleteBtnEventListener(deleteButton);
   itemDiv.appendChild(deleteButton);
 
   return itemDiv;
