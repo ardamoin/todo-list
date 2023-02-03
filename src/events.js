@@ -1,4 +1,4 @@
-import { todoFormGenerator } from "./items";
+import { todoFormGenerator, todoItem, itemComponentGenerator } from "./items";
 
 
 export function addTodoBtnEventListener() {
@@ -9,6 +9,7 @@ export function addTodoBtnEventListener() {
         document.body.appendChild(todoFormGenerator());
     })
 
+    // For todo button in the main screen, not the form
 }
 
 
@@ -21,12 +22,56 @@ const overlayToggle = (function() {
     return {enable, disable};
 })();
 
-export function addCloseEventListener(btn) {
-    btn.addEventListener("click", function() {
+export function addCloseEventListener(closeBtn) {
+    closeBtn.addEventListener("click", function() {
         const bodyNode = document.body;
         const formNode = this.parentNode.parentNode;
 
         bodyNode.removeChild(formNode);
         overlayToggle.disable();
     })
+}
+
+export function addSubmitBtnEventListener(submitBtn) {
+    submitBtn.addEventListener("click", function () {
+        const bodyDiv = this.parentNode.parentNode;
+        const closeBtn = bodyDiv.parentNode.querySelector(".form-close");
+        const title = bodyDiv.querySelector(".form-title");
+        const description = bodyDiv.querySelector(".form-details");
+        const date = bodyDiv.querySelector(".date-input");
+        const priority = bodyDiv.querySelector("button.active").textContent;
+
+
+
+        const fields = [
+            {key: "Title", element: title},
+            {key:"Date", element: date}
+        ];
+
+        let emptyField;
+
+        for (let field of fields) {
+            if (field.element.value === "") {
+                emptyField = field.key;
+                emptyFieldAlert(emptyField);
+                break;
+            }
+        }
+
+        if (emptyField === undefined) {
+            const newItem = todoItem(title.value, description.value, date.value, priority);
+            closeBtn.click();
+            insertTodoItemComponent(newItem);
+        }
+
+    })
+}
+
+
+export function insertTodoItemComponent(todoItem) {
+    document.querySelector(".main-content").appendChild(itemComponentGenerator(todoItem));
+}
+
+function emptyFieldAlert(fieldName) {
+    window.alert(`${fieldName} is required`);
 }

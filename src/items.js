@@ -1,6 +1,6 @@
 import { parseISO, format, add } from "date-fns";
 import { doc } from "prettier";
-import { addCloseEventListener } from "./events";
+import { addCloseEventListener, addSubmitBtnEventListener } from "./events";
 
 /*
 Use a factory function to return todo-items
@@ -19,10 +19,11 @@ export function todoItem(title, description, dueDate, priorityString, projectNam
     high: "high",
   });
 
-  const priority = Priorities[priorityString] || "low";
+  const priority = Priorities[priorityString.toLowerCase()] || "low";
   const project = projectName || "inbox";
-  const date = format(parseISO(dueDate), "MM/dd/yyyy"); // parseISO parses date strings written in ISO 8601 format
-
+  // const date = format(parseISO(dueDate), "MM/dd/yyyy"); // parseISO parses date strings written in ISO 8601 format
+  const date = dueDate;
+  
   return { title, description, date, priority, project };
 }
 
@@ -138,7 +139,7 @@ export function todoFormGenerator() {
   highPriorityBtn.textContent = "HIGH";
   addTodoBtn.textContent = "ADD TO DO";
   priorityDiv.classList.add("form-component", "form-priority");
-  lowPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-success");
+  lowPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-success", "active");
   lowPriorityBtn.setAttribute("data-bs-toggle", "button");
   mediumPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-warning");
   mediumPriorityBtn.setAttribute("data-bs-toggle", "button");
@@ -146,6 +147,7 @@ export function todoFormGenerator() {
   highPriorityBtn.setAttribute("data-bs-toggle", "button");
   addTodoBtn.classList.add("form-component", "add-button", "btn", "btn-outline-primary");
   makeActiveButtonStateExclusive(lowPriorityBtn, mediumPriorityBtn, highPriorityBtn);
+  addSubmitBtnEventListener(addTodoBtn);
   priorityDiv.appendChild(lowPriorityBtn);
   priorityDiv.appendChild(mediumPriorityBtn);
   priorityDiv.appendChild(highPriorityBtn);
