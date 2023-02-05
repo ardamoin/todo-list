@@ -1,6 +1,6 @@
 import { parseISO, format, add } from "date-fns";
 import { doc } from "prettier";
-import { addCloseEventListener, addSubmitBtnEventListener, addDeleteBtnEventListener, addDetailsBtnEventListener } from "./events";
+import { closeBtnEventListener, submitBtnEventListener, deleteBtnEventListener, detailsBtnEventListener, addEditBtnEventListener, editBtnEventListener } from "./events";
 
 /*
 Use a factory function to return todo-items
@@ -72,7 +72,7 @@ export function itemComponentGenerator(todoItem) {
 
   detailsButton.textContent = "DETAILS";
   detailsButton.classList.add("todo-details");
-  addDetailsBtnEventListener(detailsButton);
+  detailsButton.addEventListener("click", detailsBtnEventListener);
   itemDiv.appendChild(detailsButton);
 
   dateDiv.textContent = todoItem.date;
@@ -82,18 +82,19 @@ export function itemComponentGenerator(todoItem) {
   editButton.classList.add("todo-edit");
   editImg.classList.add("bi", "bi-pencil-square");
   editButton.appendChild(editImg);
+  addEditBtnEventListener(editButton);
   itemDiv.appendChild(editButton);
 
   deleteButton.classList.add("todo-delete");
   deleteImg.classList.add("bi", "bi-trash");
   deleteButton.appendChild(deleteImg);
-  addDeleteBtnEventListener(deleteButton);
+  deleteButton.addEventListener("click", deleteBtnEventListener);
   itemDiv.appendChild(deleteButton);
 
   return itemDiv;
 }
 
-export function todoFormGenerator() {
+export function todoFormGenerator(newForm = true, todoItem = null) {
   const formDiv = document.createElement("div");
   const closeButton = document.createElement("div");
   const headerDiv = document.createElement("div");
@@ -110,7 +111,7 @@ export function todoFormGenerator() {
 
   closeButton.classList.add("form-close");
   closeButton.textContent = "x";
-  addCloseEventListener(closeButton);
+  closeButton.addEventListener("click", closeBtnEventListener);
 
   headerDiv.textContent = "Create A New To Do";
   headerDiv.classList.add("form-component", "form-header");
@@ -150,12 +151,40 @@ export function todoFormGenerator() {
   highPriorityBtn.setAttribute("data-bs-toggle", "button");
   addTodoBtn.classList.add("form-component", "add-button", "btn", "btn-outline-primary");
   makeActiveButtonStateExclusive(lowPriorityBtn, mediumPriorityBtn, highPriorityBtn);
-  addSubmitBtnEventListener(addTodoBtn);
+  addTodoBtn.addEventListener("click", submitBtnEventListener);
   priorityDiv.appendChild(lowPriorityBtn);
   priorityDiv.appendChild(mediumPriorityBtn);
   priorityDiv.appendChild(highPriorityBtn);
   priorityDiv.appendChild(addTodoBtn);
   bodyDiv.appendChild(priorityDiv);
+
+  if (newForm === false) {
+    formDiv.removeChild(headerDiv);
+    bodyDiv.appendChild(closeButton);
+    titleArea.value = todoItem.title;
+    detailsArea.value = todoItem.description;
+    dateInput.value = todoItem.date;
+    lowPriorityBtn.classList.remove("active");
+    
+    const buttons = [
+      {key: "low", buttonElement: lowPriorityBtn},
+      {key: "medium", buttonElement: mediumPriorityBtn},
+      {key: "high", buttonElement: highPriorityBtn},
+    ];
+
+    buttons.forEach(button => {
+      if (button.key === todoItem.priority) {
+        button.buttonElement.classList.add("active");
+      }
+    })
+
+    formDiv.setAttribute("data-info", JSON.stringify(todoItem));
+    addTodoBtn.textContent = "CONFIRM EDIT";
+    addTodoBtn.removeEventListener("click", submitBtnEventListener);
+    addTodoBtn.addEventListener("click", editBtnEventListener);
+
+  }
+
 
   return formDiv;
 }
@@ -166,7 +195,7 @@ export function detailsFormGenerator(todoItem) {
   const closeButton = document.createElement("div");
   closeButton.classList.add("details-close");
   closeButton.textContent = "x";
-  addCloseEventListener(closeButton);
+  closeButton.addEventListener("click", closeBtnEventListener);
   const titleTag = document.createElement("h1");
   titleTag.textContent = todoItem.title;
   formDiv.appendChild(closeButton);
