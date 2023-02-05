@@ -52,8 +52,14 @@ function updateItemComponent(targetItemComponent,todoItem) {
 const overlayToggle = (function() {
     const overlay = document.querySelector(".overlay");
 
-    const enable = () => {overlay.classList.add("enabled")};
-    const disable = () => {overlay.classList.remove("enabled")};
+    const enable = () => {
+        overlay.classList.add("enabled");
+        makeBackgroundItemsStatic(true);
+    };
+    const disable = () => {
+        overlay.classList.remove("enabled");
+        makeBackgroundItemsStatic(false);
+    };
 
     return {enable, disable};
 })();
@@ -124,6 +130,16 @@ export function addEditBtnEventListener(editButton) {
 
 export function insertTodoItemComponent(todoItem) {
     document.querySelector(".main-content").appendChild(itemComponentGenerator(todoItem));
+}
+
+function makeBackgroundItemsStatic(makeStatic) {
+    const elements = ['.header', '.content', '.add-task'];
+    const pointerEvents = makeStatic ? 'none' : '';
+  
+    elements.forEach(element => {
+        const el = document.querySelector(element);
+        el.style.pointerEvents = pointerEvents;
+    });
 }
 
 function emptyFieldAlert(fieldName) {
