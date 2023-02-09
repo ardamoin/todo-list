@@ -226,11 +226,6 @@ export function detailsFormGenerator(todoItem) {
 }
 
 function makeActiveButtonStateExclusive(...args) {
-    /**
-     *  The goal of this function is to make it so that activating one
-     * of the priority buttons automatically deactivates the other two.
-     */
-
     args.forEach(button => {
         button.addEventListener('click', () => {
             const otherButtons = args.filter(p => p !== button);

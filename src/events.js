@@ -1,5 +1,6 @@
 import { todoFormGenerator, todoItem, itemComponentGenerator, detailsFormGenerator } from "./items";
-
+import { todos } from "./nav";
+import { remove } from "lodash";
 
 export function addTodoBtnEventListener() {
     const addTodo = document.querySelector(".add-task");
@@ -100,6 +101,8 @@ export function submitBtnEventListener() {
     if (emptyField === undefined) {
         const newItem = todoItem(title.value, description.value, date.value, priority);
         closeBtn.click();
+        todos.push(newItem);
+        console.log(todos);
         insertTodoItemComponent(newItem);
     }
 }
@@ -109,6 +112,7 @@ export function deleteBtnEventListener() {
     const component = this.parentNode;
 
     mainContent.removeChild(component);
+    _.remove(todos, obj => JSON.stringify(obj) === component.getAttribute("data-info"));
 }
 
 export function detailsBtnEventListener() {

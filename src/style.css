@@ -80,10 +80,13 @@ body {
   transition: 0.1s;
 }
 
-.sidebar > div:hover {
-  /* background-color: rgba(128, 128, 128, 0.1); */
-  font-weight: 700;
+.page:hover {
+  background-color: rgba(128, 128, 128, 0.1);
   cursor: pointer;
+}
+
+.page.active {
+  background-color: rgba(128, 128, 128, 0.1);
 }
 
 hr {
