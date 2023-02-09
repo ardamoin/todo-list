@@ -131,6 +131,11 @@ export function addEditBtnEventListener(editButton) {
     })
 }
 
+export function homeBtnEventListener() {
+    const inboxBtn = document.querySelector(".page-inbox");
+    inboxBtn.click();
+  }
+
 
 export function insertTodoItemComponent(todoItem) {
     document.querySelector(".main-content").appendChild(itemComponentGenerator(todoItem));

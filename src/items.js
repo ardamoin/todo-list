@@ -12,7 +12,7 @@ Date dueDate
 String priority
 */
 
-export function todoItem(title, description, dueDate, priorityString, projectName) {
+export function todoItem(title, description, dueDate, priorityString, projectName , done=false) {
   const Priorities = Object.freeze({
     low: "low",
     medium: "medium",
@@ -24,7 +24,7 @@ export function todoItem(title, description, dueDate, priorityString, projectNam
   // const date = format(parseISO(dueDate), "MM/dd/yyyy"); // parseISO parses date strings written in ISO 8601 format
   const date = dueDate;
   
-  return { title, description, date, priority, project };
+  return { title, description, date, priority, project, done };
 }
 
 export function itemComponentGenerator(todoItem) {
@@ -38,6 +38,7 @@ export function itemComponentGenerator(todoItem) {
   const editImg = document.createElement("i");
   const deleteButton = document.createElement("button");
   const deleteImg = document.createElement("i");
+  const checkableSubComponents = [titleDiv, detailsButton, dateDiv, editButton, deleteButton];
 
   itemDiv.classList.add("todo");
   itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
@@ -47,21 +48,27 @@ export function itemComponentGenerator(todoItem) {
 
   checkBox.type = "checkbox";
   checkBox.classList.add("todo-checkbox");
+
+  if (todoItem.done === false) {
+    checkBoxChecker(false, checkBox, ...checkableSubComponents);
+    todoItem.done = false;
+    itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
+  } else {
+      checkBoxChecker(true, checkBox, ...checkableSubComponents);
+      todoItem.done = true
+      itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
+  };
+
+
   checkBox.addEventListener("click", () => {
     if (checkBox.classList.contains("cb-checked")) {
-        checkBox.classList.remove("cb-checked");
-        titleDiv.classList.remove("checked");
-        detailsButton.classList.remove("checked");
-        dateDiv.classList.remove("checked");
-        editButton.classList.remove("checked");
-        deleteButton.classList.remove("checked");
+        checkBoxChecker(false, checkBox, ...checkableSubComponents);
+        todoItem.done = false;
+        itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
     } else {
-        checkBox.classList.add("cb-checked");
-        titleDiv.classList.add("checked");
-        detailsButton.classList.add("checked");
-        dateDiv.classList.add("checked");
-        editButton.classList.add("checked");
-        deleteButton.classList.add("checked");
+        checkBoxChecker(true, checkBox, ...checkableSubComponents);
+        todoItem.done = true
+        itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
     }
   })
   itemDiv.appendChild(checkBox);
@@ -237,3 +244,18 @@ function makeActiveButtonStateExclusive(...args) {
     })
 }
 
+function checkBoxChecker(check, checkbox, ...args) {
+  if (check === true) {
+    checkbox.classList.add("cb-checked");
+    checkbox.checked = true;
+    args.forEach(component => {
+      component.classList.add("checked");
+    })
+  } else {
+    checkbox.classList.remove("cb-checked");
+    checkbox.checked = false;
+    args.forEach(component => {
+      component.classList.remove("checked");
+    })
+  }
+}
