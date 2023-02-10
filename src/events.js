@@ -28,6 +28,13 @@ export function editBtnEventListener() {
     
 
     updateItemComponent(targetItemComponent, newObject);
+
+    for (let i = 0; i < todos.length; i++){
+        if (JSON.stringify(todos[i]) === dataInfoValue) {
+            todos.splice(i, 1, newObject);
+        }
+    };
+
     closeBtn.click();
     overlayToggle.disable();
 
