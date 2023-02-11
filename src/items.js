@@ -1,6 +1,6 @@
 import { parseISO, format, add } from "date-fns";
 import { doc } from "prettier";
-import { closeBtnEventListener, submitBtnEventListener, deleteBtnEventListener, detailsBtnEventListener, addEditBtnEventListener, editBtnEventListener } from "./events";
+import { closeBtnEventListener, submitBtnEventListener, deleteBtnEventListener, detailsBtnEventListener, addEditBtnEventListener, editBtnEventListener, submitProjectEventListener, cancelProjectEventListener } from "./events";
 
 /*
 Use a factory function to return todo-items
@@ -230,6 +230,35 @@ export function detailsFormGenerator(todoItem) {
   });
 
   return formDiv;
+}
+
+export function addProjectPopUpGenerator() {
+    const popUpDiv = document.createElement("div");
+    const projectNameInputDiv = document.createElement("div");
+    const projectNameInput = document.createElement("input");
+    const btnsDiv = document.createElement("div");
+    const addBtn = document.createElement("button");
+    const cancelBtn = document.createElement("button");
+
+    popUpDiv.classList.add("pop-up");
+    projectNameInputDiv.classList.add("pu", "pu-input");
+    projectNameInput.classList.add("pu", "pu-text");
+    btnsDiv.classList.add("pu", "pu-btns");
+    addBtn.classList.add("pu-button", "pu-add");
+    cancelBtn.classList.add("pu-button", "pu-cancel");
+
+    addBtn.addEventListener("click", submitProjectEventListener);
+    cancelBtn.addEventListener("click", cancelProjectEventListener);
+    
+    projectNameInput.type = "text";
+    addBtn.textContent = "Add";
+    cancelBtn.textContent = "Cancel";
+
+    projectNameInputDiv.appendChild(projectNameInput);
+    btnsDiv.append(addBtn, cancelBtn);
+    popUpDiv.append(projectNameInputDiv, btnsDiv);
+
+    return popUpDiv;
 }
 
 function makeActiveButtonStateExclusive(...args) {

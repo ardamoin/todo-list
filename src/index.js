@@ -2,7 +2,7 @@ import "./style.css";
 import icon from "./todo-icon.png";
 import { sidebarToggler, pageToggler, inboxPage} from "./nav";
 import * as items from "./items";
-import { addTodoBtnEventListener, homeBtnEventListener } from "./events";
+import { addProjectBtnEventListener, addTodoBtnEventListener, homeBtnEventListener } from "./events";
 import { Page } from "./pages";
 
 const todoIcon = document.createElement("link");
@@ -19,7 +19,9 @@ homeButton.addEventListener("click", homeBtnEventListener);
 
 pageToggler();
 addTodoBtnEventListener();
+addProjectBtnEventListener();
 
 
 inboxPage.appendItems();
+
 

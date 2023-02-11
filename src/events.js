@@ -1,4 +1,4 @@
-import { todoFormGenerator, todoItem, itemComponentGenerator, detailsFormGenerator } from "./items";
+import { todoFormGenerator, todoItem, itemComponentGenerator, detailsFormGenerator, addProjectPopUpGenerator } from "./items";
 import { todos } from "./nav";
 import { remove } from "lodash";
 
@@ -144,6 +144,40 @@ export function homeBtnEventListener() {
   }
 
 
+export function addProjectBtnEventListener() {
+    const addProjectBtn = document.querySelector(".add-project");
+    const sidebar = document.querySelector(".sidebar");
+
+    addProjectBtn.addEventListener("click", () => {
+        
+        sidebar.removeChild(addProjectBtn);
+        sidebar.appendChild(addProjectPopUpGenerator());
+
+    })
+}
+
+export function submitProjectEventListener() {
+    const sidebar = document.querySelector(".sidebar");
+    const textInput = document.querySelector(".pu-text");
+    const projectName = textInput.value;
+
+    if (projectName !== '') {
+        sidebar.removeChild(textInput.closest(".pop-up"));
+        sidebar.appendChild(makeNewProject(projectName));
+        sidebar.appendChild(makeAddProjectDiv());
+        addProjectBtnEventListener();
+    }
+}
+
+export function cancelProjectEventListener() {
+    const sidebar = document.querySelector(".sidebar");
+    const popUp = sidebar.querySelector(".pop-up");
+
+    sidebar.removeChild(popUp);
+    sidebar.appendChild(makeAddProjectDiv());
+    addProjectBtnEventListener();
+}
+
 export function insertTodoItemComponent(todoItem) {
     document.querySelector(".main-content").appendChild(itemComponentGenerator(todoItem));
 }
@@ -160,4 +194,38 @@ function makeBackgroundItemsStatic(makeStatic) {
 
 function emptyFieldAlert(fieldName) {
     window.alert(`${fieldName} is required`);
+}
+
+function makeNewProject(projectName) {
+    const newProject = document.createElement("div");
+    const projectNameSpan = document.createElement("span");
+    const deleteProjectImg = document.createElement("i");
+    deleteProjectImg.classList.add("bi", "bi-x-lg");
+    newProject.classList.add("sidebar-item", "page", "new-project");
+    projectNameSpan.textContent = projectName;
+    newProject.append(projectNameSpan, deleteProjectImg);
+
+    deleteProjectImg.addEventListener("click", deleteProjectEventListener);
+
+
+    return newProject;
+}
+
+function makeAddProjectDiv() {
+    const addProjectDiv = document.createElement("div");
+    const plusImg = document.createElement("i");
+    const text = document.createTextNode("Add Project");
+    addProjectDiv.classList.add("add-project")
+    plusImg.classList.add("bi", "bi-plus-lg");
+
+    addProjectDiv.append(plusImg, text);
+
+    return addProjectDiv;
+}
+
+function deleteProjectEventListener() {
+    const projectToRemove = this.closest(".new-project");
+    const sidebar = document.querySelector(".sidebar");
+
+    sidebar.removeChild(projectToRemove);
 }

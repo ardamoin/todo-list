@@ -66,11 +66,11 @@ body {
   background-color: #f9fafb;
   overflow: hidden;
   transition: 0.5s;
-  width: 200px;
-  min-width: 200px;
+  width: 250px;
+  min-width: 250px;
 }
 
-.sidebar > div {
+.sidebar > div:not(.pop-up) {
   margin: 0 30px;
   min-width: 140px;
   border-radius: 3px;
@@ -80,7 +80,7 @@ body {
   transition: 0.1s;
 }
 
-.page:hover {
+.page:hover, .add-project:hover {
   background-color: rgba(128, 128, 128, 0.1);
   cursor: pointer;
 }
@@ -89,11 +89,63 @@ body {
   background-color: rgba(128, 128, 128, 0.1);
 }
 
+.bi-x-lg {
+  visibility: hidden;
+  margin-right: 10px;
+}
+
+.new-project {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-project:hover .bi-x-lg {
+  visibility: visible;
+}
+
 hr {
   border-top: 1px solid #191919;
-  width: 120px;
-  margin: -15px 30px;
+  width: 180px;
+  margin: -15px 30px -15px 35px;
 }
+
+.pop-up {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.pu-text {
+  width: 180px;
+}
+
+.pu-btns {
+  display: flex;
+  gap: 15px;
+}
+
+.pu-button {
+  padding: 3px 15px;
+  border-width: 0px;
+  border-radius: 3px;
+}
+
+.pu-button:hover {
+  filter: brightness(85%);
+  font-weight: 600;
+}
+
+.pu-add {
+  background-color: #aaffaa;
+}
+
+.pu-cancel {
+  background-color: #ffbebe;
+}
+
 
 .main-content,
 .sidebar {
@@ -107,8 +159,8 @@ hr {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-width: 1070px;
-  margin-left: 30px;
+  min-width: 1120px;
+  margin-left: 15px;
 }
 
 .todo {

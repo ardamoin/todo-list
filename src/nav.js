@@ -11,8 +11,8 @@ function hideSidebar() {
 }
 
 function showSidebar() {
-  sidebar.style.minWidth = "200px";
-  sidebar.style.width = "200px";
+  sidebar.style.minWidth = "250px";
+  sidebar.style.width = "250px";
   sidebar.classList.remove("hidden");
 }
 
