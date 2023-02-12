@@ -141,10 +141,6 @@ export function addEditBtnEventListener(editButton) {
     })
 }
 
-export function homeBtnEventListener() {
-    const inboxBtn = document.querySelector(".page-inbox");
-    inboxBtn.click();
-  }
 
 
 export function addProjectBtnEventListener() {
