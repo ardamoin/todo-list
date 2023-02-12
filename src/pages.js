@@ -11,14 +11,14 @@ export function Page(todoItems, pageName) {
             const dateObject = parseISO(isoDateString);
 
             switch (pageName) {
+                case "Inbox":
+                    return true;
                 case "Today":
                     return isToday(dateObject);
-                    break;
                 case "This Week":
                     return isThisWeek(dateObject);
-                    break;
                 default:
-                    return true;
+                    return item.project === pageName;
             }
         })
     }

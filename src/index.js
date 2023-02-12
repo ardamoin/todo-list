@@ -1,6 +1,6 @@
 import "./style.css";
 import icon from "./todo-icon.png";
-import { sidebarToggler, pageToggler, inboxPage} from "./nav";
+import { sidebarToggler, pageToggler, inboxPage, projects} from "./nav";
 import * as items from "./items";
 import { addProjectBtnEventListener, addTodoBtnEventListener, homeBtnEventListener } from "./events";
 import { Page } from "./pages";

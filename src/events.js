@@ -1,6 +1,7 @@
 import { todoFormGenerator, todoItem, itemComponentGenerator, detailsFormGenerator, addProjectPopUpGenerator } from "./items";
-import { todos } from "./nav";
+import { mainPages, pageToggler, todos } from "./nav";
 import { remove } from "lodash";
+import { Page } from "./pages";
 
 export function addTodoBtnEventListener() {
     const addTodo = document.querySelector(".add-task");
@@ -16,6 +17,7 @@ export function addTodoBtnEventListener() {
 export function editBtnEventListener() {
     const parentForm = this.closest("[data-info]");
     const dataInfoValue = parentForm.getAttribute("data-info");
+    const dataInfoObject = JSON.parse(dataInfoValue);
     const targetItemComponent = document.querySelector(`.main-content [data-info='${dataInfoValue}']`);
 
     const bodyDiv = this.closest(".form-body");
@@ -24,7 +26,7 @@ export function editBtnEventListener() {
     const newDescription = bodyDiv.querySelector(".form-details");
     const newDate = bodyDiv.querySelector(".date-input");
     const newPriority = bodyDiv.querySelector("button.active");
-    const newObject = todoItem(newTitle.value, newDescription.value, newDate.value, newPriority.textContent);
+    const newObject = todoItem(newTitle.value, newDescription.value, newDate.value, newPriority.textContent, dataInfoObject.project, dataInfoObject.done);
     
 
     updateItemComponent(targetItemComponent, newObject);
@@ -87,6 +89,7 @@ export function submitBtnEventListener() {
     const description = bodyDiv.querySelector(".form-details");
     const date = bodyDiv.querySelector(".date-input");
     const priority = bodyDiv.querySelector("button.active").textContent;
+    const context = document.querySelector(".main-content").getAttribute("context");
 
 
 
@@ -106,7 +109,7 @@ export function submitBtnEventListener() {
     }
 
     if (emptyField === undefined) {
-        const newItem = todoItem(title.value, description.value, date.value, priority);
+        const newItem = todoItem(title.value, description.value, date.value, priority, context);
         closeBtn.click();
         todos.push(newItem);
         console.log(todos);
@@ -166,6 +169,8 @@ export function submitProjectEventListener() {
         sidebar.appendChild(makeNewProject(projectName));
         sidebar.appendChild(makeAddProjectDiv());
         addProjectBtnEventListener();
+        mainPages[projectName] = new Page(todos, projectName);
+        pageToggler();
     }
 }
 
@@ -226,6 +231,8 @@ function makeAddProjectDiv() {
 function deleteProjectEventListener() {
     const projectToRemove = this.closest(".new-project");
     const sidebar = document.querySelector(".sidebar");
+
+    _.remove(todos, obj => obj.project === projectToRemove.textContent);
 
     sidebar.removeChild(projectToRemove);
 }
