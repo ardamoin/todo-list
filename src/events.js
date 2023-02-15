@@ -2,6 +2,7 @@ import { todoFormGenerator, todoItem, itemComponentGenerator, detailsFormGenerat
 import { mainPages, pageToggler, todos } from "./nav";
 import { remove } from "lodash";
 import { Page } from "./pages";
+import { savePagesAndTodos } from "./storage";
 
 export function addTodoBtnEventListener() {
     const addTodo = document.querySelector(".add-task");
@@ -10,8 +11,6 @@ export function addTodoBtnEventListener() {
         overlayToggle.enable();
         document.body.appendChild(todoFormGenerator());
     })
-
-    // For todo button in the main screen, not the form
 }
 
 export function editBtnEventListener() {
@@ -34,6 +33,7 @@ export function editBtnEventListener() {
     for (let i = 0; i < todos.length; i++){
         if (JSON.stringify(todos[i]) === dataInfoValue) {
             todos.splice(i, 1, newObject);
+            savePagesAndTodos();
         }
     };
 
@@ -90,6 +90,7 @@ export function submitBtnEventListener() {
     const date = bodyDiv.querySelector(".date-input");
     const priority = bodyDiv.querySelector("button.active").textContent;
     const context = document.querySelector(".main-content").getAttribute("context");
+    const activePage = document.querySelector(".active");
 
 
 
@@ -112,8 +113,9 @@ export function submitBtnEventListener() {
         const newItem = todoItem(title.value, description.value, date.value, priority, context);
         closeBtn.click();
         todos.push(newItem);
-        console.log(todos);
         insertTodoItemComponent(newItem);
+        activePage.click();
+        savePagesAndTodos();
     }
 }
 
@@ -123,6 +125,7 @@ export function deleteBtnEventListener() {
 
     mainContent.removeChild(component);
     _.remove(todos, obj => JSON.stringify(obj) === component.getAttribute("data-info"));
+    savePagesAndTodos();
 }
 
 export function detailsBtnEventListener() {
@@ -151,6 +154,7 @@ export function addProjectBtnEventListener() {
         
         sidebar.removeChild(addProjectBtn);
         sidebar.appendChild(addProjectPopUpGenerator());
+        savePagesAndTodos();
 
     })
 }
@@ -167,6 +171,7 @@ export function submitProjectEventListener() {
         addProjectBtnEventListener();
         mainPages[projectName] = new Page(todos, projectName);
         pageToggler();
+        savePagesAndTodos();
     }
 }
 
@@ -197,7 +202,7 @@ function emptyFieldAlert(fieldName) {
     window.alert(`${fieldName} is required`);
 }
 
-function makeNewProject(projectName) {
+export function makeNewProject(projectName) {
     const newProject = document.createElement("div");
     const projectNameSpan = document.createElement("span");
     const deleteProjectImg = document.createElement("i");
@@ -212,7 +217,7 @@ function makeNewProject(projectName) {
     return newProject;
 }
 
-function makeAddProjectDiv() {
+export function makeAddProjectDiv() {
     const addProjectDiv = document.createElement("div");
     const plusImg = document.createElement("i");
     const text = document.createTextNode("Add Project");
@@ -224,11 +229,24 @@ function makeAddProjectDiv() {
     return addProjectDiv;
 }
 
-function deleteProjectEventListener() {
+function deleteProjectEventListener(event) {
     const projectToRemove = this.closest(".new-project");
     const sidebar = document.querySelector(".sidebar");
+    const mainContent = document.querySelector(".main-content");
+    const inboxDiv = sidebar.querySelector(".page-inbox");
+    const activeDiv = sidebar.querySelector(".active");
+    event.stopPropagation();
+
 
     _.remove(todos, obj => obj.project === projectToRemove.textContent);
-
+    delete mainPages[projectToRemove.textContent];
     sidebar.removeChild(projectToRemove);
+    mainContent.setAttribute("context", "inbox");
+    
+    if (activeDiv) {
+        activeDiv.click();
+    } else {
+        inboxDiv.click();
+    }
+    savePagesAndTodos();
 }

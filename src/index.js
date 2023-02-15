@@ -1,9 +1,8 @@
 import "./style.css";
 import icon from "./todo-icon.png";
-import { sidebarToggler, pageToggler, inboxPage, projects} from "./nav";
-import * as items from "./items";
+import { sidebarToggler, pageToggler, inboxPage} from "./nav";
 import { addProjectBtnEventListener, addTodoBtnEventListener } from "./events";
-import { Page } from "./pages";
+import { checkStorage } from "./storage";
 
 const todoIcon = document.createElement("link");
 todoIcon.rel = "icon";
@@ -22,4 +21,5 @@ addProjectBtnEventListener();
 
 inboxPage.appendItems();
 
+checkStorage();
 

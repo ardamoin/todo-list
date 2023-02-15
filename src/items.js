@@ -1,16 +1,5 @@
-import { parseISO, format, add } from "date-fns";
-import { doc } from "prettier";
 import { closeBtnEventListener, submitBtnEventListener, deleteBtnEventListener, detailsBtnEventListener, addEditBtnEventListener, editBtnEventListener, submitProjectEventListener, cancelProjectEventListener } from "./events";
 
-/*
-Use a factory function to return todo-items
-each item should have the following properties:
-
-String title
-String description
-Date dueDate
-String priority
-*/
 
 export function todoItem(title, description, dueDate, priorityString, projectName , done=false) {
   const Priorities = Object.freeze({
@@ -21,7 +10,6 @@ export function todoItem(title, description, dueDate, priorityString, projectNam
 
   const priority = Priorities[priorityString.toLowerCase()] || "low";
   const project = projectName || "inbox";
-  // const date = format(parseISO(dueDate), "MM/dd/yyyy"); // parseISO parses date strings written in ISO 8601 format
   const date = dueDate;
   
   return { title, description, date, priority, project, done };
