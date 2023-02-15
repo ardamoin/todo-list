@@ -1,8 +1,0 @@
-# Ignore artifacts:
-dist
-node_modules
-.gitignore
-README.md
-webpack.config.js
-package.json
-package-lock.json
