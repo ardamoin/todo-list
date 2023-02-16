@@ -1,26 +1,29 @@
-import { addProjectBtnEventListener, makeAddProjectDiv, makeNewProject } from "./events";
+import {
+  addProjectBtnEventListener,
+  makeAddProjectDiv,
+  makeNewProject,
+} from "./events";
 import { todos, mainPages, updator, pageToggler } from "./nav";
 
 export function savePagesAndTodos() {
-    localStorage.setItem("todos", JSON.stringify(todos));
-    localStorage.setItem("pages", JSON.stringify(mainPages));
+  localStorage.setItem("todos", JSON.stringify(todos));
+  localStorage.setItem("pages", JSON.stringify(mainPages));
 }
 
 export function checkStorage() {
-    updator.updateTodos(JSON.parse(localStorage.getItem("todos")));
-    updator.updatePages(JSON.parse(localStorage.getItem("pages")));
+  updator.updateTodos(JSON.parse(localStorage.getItem("todos")));
+  updator.updatePages(JSON.parse(localStorage.getItem("pages")));
 
+  mainPages["Inbox"].appendItems();
+  const sidebar = document.querySelector(".sidebar");
 
-    mainPages["Inbox"].appendItems();
-    const sidebar = document.querySelector(".sidebar");
-
-    for (let key in mainPages) {
-        if (key !== "Inbox" && key !== "Today" && key !== "This Week") {
-            sidebar.removeChild(document.querySelector(".add-project"));
-            sidebar.appendChild(makeNewProject(key));
-            sidebar.appendChild(makeAddProjectDiv());
-            addProjectBtnEventListener();
-            pageToggler();
-        }
+  for (let key in mainPages) {
+    if (key !== "Inbox" && key !== "Today" && key !== "This Week") {
+      sidebar.removeChild(document.querySelector(".add-project"));
+      sidebar.appendChild(makeNewProject(key));
+      sidebar.appendChild(makeAddProjectDiv());
+      addProjectBtnEventListener();
+      pageToggler();
     }
-};
+  }
+}

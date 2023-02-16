@@ -1,7 +1,22 @@
-import { closeBtnEventListener, submitBtnEventListener, deleteBtnEventListener, detailsBtnEventListener, addEditBtnEventListener, editBtnEventListener, submitProjectEventListener, cancelProjectEventListener } from "./events";
+import {
+  closeBtnEventListener,
+  submitBtnEventListener,
+  deleteBtnEventListener,
+  detailsBtnEventListener,
+  addEditBtnEventListener,
+  editBtnEventListener,
+  submitProjectEventListener,
+  cancelProjectEventListener,
+} from "./events";
 
-
-export function todoItem(title, description, dueDate, priorityString, projectName , done=false) {
+export function todoItem(
+  title,
+  description,
+  dueDate,
+  priorityString,
+  projectName,
+  done = false
+) {
   const Priorities = Object.freeze({
     low: "low",
     medium: "medium",
@@ -11,7 +26,7 @@ export function todoItem(title, description, dueDate, priorityString, projectNam
   const priority = Priorities[priorityString.toLowerCase()] || "low";
   const project = projectName || "inbox";
   const date = dueDate;
-  
+
   return { title, description, date, priority, project, done };
 }
 
@@ -26,12 +41,21 @@ export function itemComponentGenerator(todoItem) {
   const editImg = document.createElement("i");
   const deleteButton = document.createElement("button");
   const deleteImg = document.createElement("i");
-  const checkableSubComponents = [titleDiv, detailsButton, dateDiv, editButton, deleteButton];
+  const checkableSubComponents = [
+    titleDiv,
+    detailsButton,
+    dateDiv,
+    editButton,
+    deleteButton,
+  ];
 
   itemDiv.classList.add("todo");
   itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
 
-  priorityColor.classList.add("priority-strip", `priority-${todoItem.priority}`);
+  priorityColor.classList.add(
+    "priority-strip",
+    `priority-${todoItem.priority}`
+  );
   itemDiv.appendChild(priorityColor);
 
   checkBox.type = "checkbox";
@@ -42,23 +66,22 @@ export function itemComponentGenerator(todoItem) {
     todoItem.done = false;
     itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
   } else {
-      checkBoxChecker(true, checkBox, ...checkableSubComponents);
-      todoItem.done = true
-      itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
-  };
-
+    checkBoxChecker(true, checkBox, ...checkableSubComponents);
+    todoItem.done = true;
+    itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
+  }
 
   checkBox.addEventListener("click", () => {
     if (checkBox.classList.contains("cb-checked")) {
-        checkBoxChecker(false, checkBox, ...checkableSubComponents);
-        todoItem.done = false;
-        itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
+      checkBoxChecker(false, checkBox, ...checkableSubComponents);
+      todoItem.done = false;
+      itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
     } else {
-        checkBoxChecker(true, checkBox, ...checkableSubComponents);
-        todoItem.done = true
-        itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
+      checkBoxChecker(true, checkBox, ...checkableSubComponents);
+      todoItem.done = true;
+      itemDiv.setAttribute("data-info", JSON.stringify(todoItem));
     }
-  })
+  });
   itemDiv.appendChild(checkBox);
 
   titleDiv.textContent = todoItem.title;
@@ -138,14 +161,39 @@ export function todoFormGenerator(newForm = true, todoItem = null) {
   highPriorityBtn.textContent = "HIGH";
   addTodoBtn.textContent = "ADD TO DO";
   priorityDiv.classList.add("form-component", "form-priority");
-  lowPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-success", "active");
+  lowPriorityBtn.classList.add(
+    "form-component",
+    "priority-button",
+    "btn",
+    "btn-outline-success",
+    "active"
+  );
   lowPriorityBtn.setAttribute("data-bs-toggle", "button");
-  mediumPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-warning");
+  mediumPriorityBtn.classList.add(
+    "form-component",
+    "priority-button",
+    "btn",
+    "btn-outline-warning"
+  );
   mediumPriorityBtn.setAttribute("data-bs-toggle", "button");
-  highPriorityBtn.classList.add("form-component", "priority-button", "btn", "btn-outline-danger");
+  highPriorityBtn.classList.add(
+    "form-component",
+    "priority-button",
+    "btn",
+    "btn-outline-danger"
+  );
   highPriorityBtn.setAttribute("data-bs-toggle", "button");
-  addTodoBtn.classList.add("form-component", "add-button", "btn", "btn-outline-primary");
-  makeActiveButtonStateExclusive(lowPriorityBtn, mediumPriorityBtn, highPriorityBtn);
+  addTodoBtn.classList.add(
+    "form-component",
+    "add-button",
+    "btn",
+    "btn-outline-primary"
+  );
+  makeActiveButtonStateExclusive(
+    lowPriorityBtn,
+    mediumPriorityBtn,
+    highPriorityBtn
+  );
   addTodoBtn.addEventListener("click", submitBtnEventListener);
   priorityDiv.appendChild(lowPriorityBtn);
   priorityDiv.appendChild(mediumPriorityBtn);
@@ -160,26 +208,24 @@ export function todoFormGenerator(newForm = true, todoItem = null) {
     detailsArea.value = todoItem.description;
     dateInput.value = todoItem.date;
     lowPriorityBtn.classList.remove("active");
-    
+
     const buttons = [
-      {key: "low", buttonElement: lowPriorityBtn},
-      {key: "medium", buttonElement: mediumPriorityBtn},
-      {key: "high", buttonElement: highPriorityBtn},
+      { key: "low", buttonElement: lowPriorityBtn },
+      { key: "medium", buttonElement: mediumPriorityBtn },
+      { key: "high", buttonElement: highPriorityBtn },
     ];
 
-    buttons.forEach(button => {
+    buttons.forEach((button) => {
       if (button.key === todoItem.priority) {
         button.buttonElement.classList.add("active");
       }
-    })
+    });
 
     formDiv.setAttribute("data-info", JSON.stringify(todoItem));
     addTodoBtn.textContent = "CONFIRM EDIT";
     addTodoBtn.removeEventListener("click", submitBtnEventListener);
     addTodoBtn.addEventListener("click", editBtnEventListener);
-
   }
-
 
   return formDiv;
 }
@@ -200,10 +246,14 @@ export function detailsFormGenerator(todoItem) {
     { key: "project", label: "Project:", className: "details-project" },
     { key: "priority", label: "Priority:", className: "details-priority" },
     { key: "date", label: "Due Date:", className: "details-date" },
-    { key: "description", label: "Description:", className: "details-description" }
+    {
+      key: "description",
+      label: "Description:",
+      className: "details-description",
+    },
   ];
 
-  fields.forEach(field => {
+  fields.forEach((field) => {
     const div = document.createElement("div");
     const label = document.createElement("span");
     label.textContent = field.label;
@@ -221,58 +271,58 @@ export function detailsFormGenerator(todoItem) {
 }
 
 export function addProjectPopUpGenerator() {
-    const popUpDiv = document.createElement("div");
-    const projectNameInputDiv = document.createElement("div");
-    const projectNameInput = document.createElement("input");
-    const btnsDiv = document.createElement("div");
-    const addBtn = document.createElement("button");
-    const cancelBtn = document.createElement("button");
+  const popUpDiv = document.createElement("div");
+  const projectNameInputDiv = document.createElement("div");
+  const projectNameInput = document.createElement("input");
+  const btnsDiv = document.createElement("div");
+  const addBtn = document.createElement("button");
+  const cancelBtn = document.createElement("button");
 
-    popUpDiv.classList.add("pop-up");
-    projectNameInputDiv.classList.add("pu", "pu-input");
-    projectNameInput.classList.add("pu", "pu-text");
-    btnsDiv.classList.add("pu", "pu-btns");
-    addBtn.classList.add("pu-button", "pu-add");
-    cancelBtn.classList.add("pu-button", "pu-cancel");
+  popUpDiv.classList.add("pop-up");
+  projectNameInputDiv.classList.add("pu", "pu-input");
+  projectNameInput.classList.add("pu", "pu-text");
+  btnsDiv.classList.add("pu", "pu-btns");
+  addBtn.classList.add("pu-button", "pu-add");
+  cancelBtn.classList.add("pu-button", "pu-cancel");
 
-    addBtn.addEventListener("click", submitProjectEventListener);
-    cancelBtn.addEventListener("click", cancelProjectEventListener);
-    
-    projectNameInput.type = "text";
-    addBtn.textContent = "Add";
-    cancelBtn.textContent = "Cancel";
+  addBtn.addEventListener("click", submitProjectEventListener);
+  cancelBtn.addEventListener("click", cancelProjectEventListener);
 
-    projectNameInputDiv.appendChild(projectNameInput);
-    btnsDiv.append(addBtn, cancelBtn);
-    popUpDiv.append(projectNameInputDiv, btnsDiv);
+  projectNameInput.type = "text";
+  addBtn.textContent = "Add";
+  cancelBtn.textContent = "Cancel";
 
-    return popUpDiv;
+  projectNameInputDiv.appendChild(projectNameInput);
+  btnsDiv.append(addBtn, cancelBtn);
+  popUpDiv.append(projectNameInputDiv, btnsDiv);
+
+  return popUpDiv;
 }
 
 function makeActiveButtonStateExclusive(...args) {
-    args.forEach(button => {
-        button.addEventListener('click', () => {
-            const otherButtons = args.filter(p => p !== button);
-            otherButtons.map(p => {
-                p.classList.remove("active");
-                p.setAttribute("aria-pressed", "false");
-            })
-        })
-    })
+  args.forEach((button) => {
+    button.addEventListener("click", () => {
+      const otherButtons = args.filter((p) => p !== button);
+      otherButtons.map((p) => {
+        p.classList.remove("active");
+        p.setAttribute("aria-pressed", "false");
+      });
+    });
+  });
 }
 
 function checkBoxChecker(check, checkbox, ...args) {
   if (check === true) {
     checkbox.classList.add("cb-checked");
     checkbox.checked = true;
-    args.forEach(component => {
+    args.forEach((component) => {
       component.classList.add("checked");
-    })
+    });
   } else {
     checkbox.classList.remove("cb-checked");
     checkbox.checked = false;
-    args.forEach(component => {
+    args.forEach((component) => {
       component.classList.remove("checked");
-    })
+    });
   }
 }

@@ -10,8 +10,6 @@ body {
   flex-direction: column;
 }
 
-
-
 .header {
   height: 60px;
   margin: 0;
@@ -80,7 +78,8 @@ body {
   transition: 0.1s;
 }
 
-.page:hover, .add-project:hover {
+.page:hover,
+.add-project:hover {
   background-color: rgba(128, 128, 128, 0.1);
   cursor: pointer;
 }
@@ -146,7 +145,6 @@ hr {
   background-color: #ffbebe;
 }
 
-
 .main-content,
 .sidebar {
   padding-top: 30px;
@@ -174,31 +172,31 @@ hr {
 }
 
 .todo > *:not(.priority-strip) {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .todo:hover {
-    transform:scale(1.005);
-    -webkit-box-shadow: 7px 7px 10px -6px rgba(0,0,0,0.4);
+  transform: scale(1.005);
+  -webkit-box-shadow: 7px 7px 10px -6px rgba(0, 0, 0, 0.4);
 }
 
 .priority-strip {
-    min-width: 4px;
-    height: 100%;
-    margin-right: 0.75rem;
+  min-width: 4px;
+  height: 100%;
+  margin-right: 0.75rem;
 }
 
 .priority-low {
-    background-color: green;
+  background-color: green;
 }
 
 .priority-medium {
-    background-color: orange;
+  background-color: orange;
 }
 
 .priority-high {
-    background-color: red;
+  background-color: red;
 }
 
 .todo-checkbox {
@@ -365,79 +363,79 @@ hr {
 }
 
 .details-form {
-    background-color: rgba(128, 128, 128, 0.3);
-    box-shadow: 0 2rem 4rem rgb(0 0 0 / 60%);
-    color: #793d05;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 640px;
-    min-width: 500px;
-    position: relative;
-    border-radius: 3px;
-    margin-right: auto;
-    margin-left: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
+  background-color: rgba(128, 128, 128, 0.3);
+  box-shadow: 0 2rem 4rem rgb(0 0 0 / 60%);
+  color: #793d05;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 640px;
+  min-width: 500px;
+  position: relative;
+  border-radius: 3px;
+  margin-right: auto;
+  margin-left: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
 }
 
-.details-close, .form-close {
-    position: absolute;
-    right: 25px;
-    top: 10px;
-    font-size: 24px;
-    font-weight: bolder;
+.details-close,
+.form-close {
+  position: absolute;
+  right: 25px;
+  top: 10px;
+  font-size: 24px;
+  font-weight: bolder;
 }
 
 .details-close:hover {
-    color: goldenrod;
-    cursor: pointer;
+  color: goldenrod;
+  cursor: pointer;
 }
 
 .form-close:hover {
-    color: #693705;
-    cursor: pointer;
+  color: #693705;
+  cursor: pointer;
 }
 
 .details-project {
-    margin-right: 3.1rem;
-    font-weight: 700;
+  margin-right: 3.1rem;
+  font-weight: 700;
 }
 
 .details-priority {
-    margin-right: 3.1rem;
-    font-weight: 700;
+  margin-right: 3.1rem;
+  font-weight: 700;
 }
 
 .details-date {
-    margin-right: 2rem;
-    font-weight: 700;
+  margin-right: 2rem;
+  font-weight: 700;
 }
 
 .details-description {
-    margin-right: 1.1rem;
-    font-weight: 700;
+  margin-right: 1.1rem;
+  font-weight: 700;
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    mix-blend-mode: multiply;
-    background-repeat: repeat;
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  mix-blend-mode: multiply;
+  background-repeat: repeat;
+  pointer-events: none;
 }
 
-.overlay.enabled{
+.overlay.enabled {
   min-width: calc(100vw + 17px);
   backdrop-filter: blur(6px);
   z-index: 2;
   margin-top: -500px;
-
 }
