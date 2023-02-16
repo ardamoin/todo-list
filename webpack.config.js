@@ -4,6 +4,10 @@ module.exports = {
   entry: {
     index: './src/index.js',
     nav: './src/nav.js',
+    items: './src/items.js',
+    events: './src/events.js',
+    pages: './src/pages.js',
+    storage: './src/storage.js',
 },
 devtool: 'inline-source-map',
   output: {
