@@ -4,11 +4,11 @@ import {
   itemComponentGenerator,
   detailsFormGenerator,
   addProjectPopUpGenerator,
-} from "./items";
-import { mainPages, pageToggler, todos } from "./nav";
+} from "./items.js";
+import { mainPages, pageToggler, todos } from "./nav.js";
 import { remove } from "lodash";
-import { Page } from "./pages";
-import { savePagesAndTodos } from "./storage";
+import { Page } from "./pages.js";
+import { savePagesAndTodos } from "./storage.js";
 
 export function addTodoBtnEventListener() {
   const addTodo = document.querySelector(".add-task");

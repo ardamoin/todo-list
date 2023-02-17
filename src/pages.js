@@ -1,5 +1,5 @@
 import { parseISO, isToday, isThisWeek } from "date-fns";
-import { itemComponentGenerator } from "./items";
+import { itemComponentGenerator } from "./items.js";
 
 export function Page(todoItems, pageName) {
   this.todoItems = todoItems;

@@ -2,8 +2,8 @@ import {
   addProjectBtnEventListener,
   makeAddProjectDiv,
   makeNewProject,
-} from "./events";
-import { todos, mainPages, updator, pageToggler } from "./nav";
+} from "./events.js";
+import { todos, mainPages, updator, pageToggler } from "./nav.js";
 
 export function savePagesAndTodos() {
   localStorage.setItem("todos", JSON.stringify(todos));

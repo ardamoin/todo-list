@@ -7,7 +7,7 @@ import {
   editBtnEventListener,
   submitProjectEventListener,
   cancelProjectEventListener,
-} from "./events";
+} from "./events.js";
 
 export function todoItem(
   title,

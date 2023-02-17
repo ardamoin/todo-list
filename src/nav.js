@@ -1,5 +1,5 @@
 import "./style.css";
-import { Page } from "./pages";
+import { Page } from "./pages.js";
 
 const sidebar = document.querySelector(".sidebar");
 
